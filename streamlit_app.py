@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+
 from sklearn.datasets import make_moons
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -9,32 +10,6 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-import matplotlib.pyplot as plt
-
-# Map algorithm names to sklearn estimators and simple descriptions
-ALGORITHMS = {
-    "Logistic Regression": {
-        "model": LogisticRegression(),
-        "description": "A linear model that estimates probabilities using a logistic function."
-    },
-    "Support Vector Machine": {
-        "model": SVC(probability=True),
-        "description": "Finds a hyperplane that best separates classes with maximum margin."
-    },
-    "Decision Tree": {
-        "model": DecisionTreeClassifier(),
-        "description": "Partitions data by learning decision rules in a tree structure."
-    },
-    "K-Nearest Neighbors": {
-        "model": KNeighborsClassifier(),
-        "description": "Classifies a point based on majority vote of its nearest neighbors."
-    },
-    "Random Forest": {
-        "model": RandomForestClassifier(),
-        "description": "Ensemble of decision trees aggregated by averaging or voting."
-    },
-}
-
 
 def plot_decision_boundary(model, X, y):
     """Plot the decision boundary of a classifier along with the data."""
@@ -58,24 +33,6 @@ def plot_decision_boundary(model, X, y):
 def main():
     st.title("ML Algorithms Visualized")
     st.write(
-        "Select an algorithm from the sidebar to see a quick description and its decision boundary on a toy dataset."
-    )
-
-    algorithm_name = st.sidebar.selectbox("Algorithm", list(ALGORITHMS.keys()))
-    algo_info = ALGORITHMS[algorithm_name]
-    st.sidebar.write(algo_info["description"])
-
-    # Generate a 2D dataset
-    X, y = make_moons(noise=0.3, random_state=42)
-
-    # Split and scale features
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
-    model = make_pipeline(StandardScaler(), algo_info["model"])
-    model.fit(X_train, y_train)
-
-    st.write(f"### {algorithm_name}")
-    st.write(algo_info["description"])
-    plot_decision_boundary(model, X, y)
 
 
 if __name__ == "__main__":

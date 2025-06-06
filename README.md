@@ -17,3 +17,4 @@ streamlit run streamlit_app.py
 ```
 
 Use the sidebar to select an algorithm and see its decision boundary on a two-dimensional dataset.
+
